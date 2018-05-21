@@ -1,7 +1,32 @@
 /*
  * Create a list that holds all of your cards
  */
+$(document).ready(function() {
+	
+	const cardArray = [
+		"fa-diamond",
+		"fa-diamond",
+		"fa-paper-plane-o",
+		"fa-paper-plane-o",
+		"fa-anchor",
+		"fa-anchor",
+		"fa-bolt",
+		"fa-bolt",
+		"fa-cube",
+		"fa-cube",
+		"fa-leaf",
+		"fa-leaf",
+		"fa-bicycle",
+		"fa-bicycle",
+		"fa-bomb",
+		"fa-bomb",
+		];
 
+	const deck = $(".deck");
+	let clickCounter = 2;
+	let clickedCards = [];
+	let matchedCards = [];
+	let match = 0;
 
 /*
  * Display the cards on the page
@@ -26,6 +51,54 @@ function shuffle(array) {
 }
 
 
+
+function newGame() {
+	$(".deck").on("click", "li", function() {
+		$(this).toggleClass("open show");
+		//pushes the clicked cards to an empty array
+		clickedCards.push(event.target.innerHTML);
+		// clickedCards.push($(this.children));
+		// clickedCards.push($(this).closest('li.card').find('i.fa').val());
+			console.log(clickedCards);
+		//each clicked card removes a click from the counter
+		clickCounter--;
+			console.log(clickCounter);
+		//determines how many clicks the user has
+		if (clickCounter === 0) {
+			compareCards();
+		}else{
+			return;
+		}
+
+	});
+	
+};
+
+function compareCards() {
+	if(clickedCards[0] === clickedCards[1]) {
+		console.log("match");
+		match++;
+		matchedCards.push(clickedCards);
+		console.log(matchedCards);
+		setTimeout(function() {
+			// $("li").addClass("match");
+			clickCounter = 2;
+			clickedCards = [];
+		}, 1000);
+	}else {
+		console.log("no match");
+		setTimeout(function(){
+			$("li").removeClass("open show");
+			clickCounter = 2;
+			clickedCards = [];
+		}, 1000);
+
+	}
+}
+
+newGame();
+
+});
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
