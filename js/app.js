@@ -57,12 +57,10 @@ function newGame() {
 		$(this).toggleClass("open show");
 		//pushes the clicked cards to an empty array
 		clickedCards.push(event.target.innerHTML);
-		// clickedCards.push($(this.children));
-		// clickedCards.push($(this).closest('li.card').find('i.fa').val());
-			console.log(clickedCards);
+			console.log("clicked cards " + clickedCards);
 		//each clicked card removes a click from the counter
 		clickCounter--;
-			console.log(clickCounter);
+			console.log("click counter " +clickCounter);
 		//determines how many clicks the user has
 		if (clickCounter === 0) {
 			compareCards();
@@ -77,14 +75,9 @@ function newGame() {
 function compareCards() {
 	if(clickedCards[0] === clickedCards[1]) {
 		console.log("match");
-		match++;
-		matchedCards.push(clickedCards);
-		console.log(matchedCards);
-		setTimeout(function() {
-			// $("li").addClass("match");
-			clickCounter = 2;
-			clickedCards = [];
-		}, 1000);
+		matchedCard();
+		// console.log(matchedCards);
+		
 	}else {
 		console.log("no match");
 		setTimeout(function(){
@@ -94,6 +87,24 @@ function compareCards() {
 		}, 1000);
 
 	}
+}
+
+function matchedCard() {
+	matchedCards.push(clickedCards);
+	console.log("matched cards" + matchedCards);
+	// $("li").removeClass("open show");
+	$("matched cards li").addClass("match");
+	// matchedCards[0].removeClass("open");
+	// matchedCards[0].classList.add("matched");
+	// matchedCards[1].classList.remove("open");
+	// matchedCards[1].classList.add("matched");
+	match++
+	setTimeout(function() {
+			clickCounter = 2;
+			clickedCards = [];
+			// compareCards();
+		}, 1000);
+
 }
 
 newGame();
