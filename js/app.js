@@ -92,8 +92,8 @@ function compareCards() {
 function matchedCard() {
 	matchedCards.push(clickedCards);
 	console.log("matched cards" + matchedCards);
-	// $("li").removeClass("open show");
-	$("matched cards li").addClass("match");
+	$("li").removeClass("open show");
+	$("li").addClass("match");
 	// matchedCards[0].removeClass("open");
 	// matchedCards[0].classList.add("matched");
 	// matchedCards[1].classList.remove("open");
