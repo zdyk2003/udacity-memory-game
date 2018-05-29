@@ -96,18 +96,20 @@ function compareCards() {
 function matchedCard() {
 	matchedCards.push(clickedCards);
 	console.log("matched cards" + matchedCards);
-	// $(this).removeClass("open show");
-	// $(this).addClass("match");
 	match++;
 	setTimeout(function() {
-	$(matchedCards[0]).removeClass("open show");
-	$(matchedCards[0]).addClass("match");
-	$(matchedCards[1]).removeClass("open show");
-	$(matchedCards[1]).addClass("match");
-	// match++
-	// setTimeout(function() {
+		$(matchedCards[0]).removeClass("open show");
+		$(matchedCards[0]).addClass("match");
+		$(matchedCards[1]).removeClass("open show");
+		$(matchedCards[1]).addClass("match");
+			//return click counter back to 2
 			clickCounter = 2;
+			//empty clickedCards array
 			clickedCards = [];
+			//push matched cards to new savedCards array
+			savedCards.push(matchedCards);
+			//empty the matchedCards array
+			matchedCards = [];
 			// compareCards();
 		}, 1000);
 	// savedCards.push(matchedCards);
