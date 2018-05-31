@@ -1,25 +1,15 @@
 /*
  * Create a list that holds all of your cards
- */
-
-	
+ */	
 	const cardArray = [
-		"fa-diamond",
-		"fa-diamond",
-		"fa-paper-plane-o",
-		"fa-paper-plane-o",
-		"fa-anchor",
-		"fa-anchor",
-		"fa-bolt",
-		"fa-bolt",
-		"fa-cube",
-		"fa-cube",
-		"fa-leaf",
-		"fa-leaf",
-		"fa-bicycle",
-		"fa-bicycle",
-		"fa-bomb",
-		"fa-bomb",
+		"fa-diamond", "fa-diamond",
+		"fa-paper-plane-o", "fa-paper-plane-o",
+		"fa-anchor", "fa-anchor",
+		"fa-bolt", "fa-bolt",
+		"fa-cube", "fa-cube",
+		"fa-leaf", "fa-leaf",
+		"fa-bicycle", "fa-bicycle",
+		"fa-bomb", "fa-bomb",
 		];
 
 	const deck = $(".deck");
@@ -28,6 +18,11 @@
 	let matchedCards = [];
 	let savedCards = [];
 	let match = 0;
+	let moves = 0;
+	let stars = 3;
+
+
+
 
 $(document).ready(function() {
 
@@ -53,35 +48,48 @@ function shuffle(array) {
     return array;
 }
 
-
-
 function newGame() {
 	$(".deck").on("click", "li", function() {
+		moveCounter();
 		$(this).toggleClass("open show");
 		//pushes the clicked cards to an empty array
 		clickedCards.push(this);
-		// (event.target.innerHTML);
-			console.log("clicked cards " + clickedCards);
 		//each clicked card removes a click from the counter
 		clickCounter--;
-			console.log("click counter " + clickCounter);
 		//determines how many clicks the user has
 		if (clickCounter === 0) {
 			compareCards();
 		}else{
-			return;
+			endGame();
 		}
-
-	});
-	
+	});	
 };
 
+function moveCounter() {
+		moves++;
+		$(".moves").html(moves);
+		console.log("moves " + moves);
+		//remove stars
+			if (moves === 15) {
+				$("#star1").hide();
+				stars--;
+			}else if (moves === 20) {		
+				$("#star2").hide();
+				stars--;
+			}else if (moves === 30) {		
+				$("#star3").hide();
+				stars--;
+			}else {
+				return;
+			}
+}
+
 function compareCards() {
+	//if the cards match, move to the matchedCard function
 	if ($(clickedCards[0]).find('i').attr('class') === $(clickedCards[1]).find('i').attr('class')) {
 		console.log("match");
 		matchedCard();
-		// console.log(matchedCards);
-		
+	//if cards do not match, flip cards back over and play continues	
 	}else {
 		console.log("no match");
 		setTimeout(function(){
@@ -89,7 +97,6 @@ function compareCards() {
 			clickCounter = 2;
 			clickedCards = [];
 		}, 1000);
-
 	}
 }
 
@@ -98,6 +105,7 @@ function matchedCard() {
 	console.log("matched cards" + matchedCards);
 	match++;
 	setTimeout(function() {
+		//matched cards change colors
 		$(matchedCards[0]).removeClass("open show");
 		$(matchedCards[0]).addClass("match");
 		$(matchedCards[1]).removeClass("open show");
@@ -112,10 +120,8 @@ function matchedCard() {
 			matchedCards = [];
 			// compareCards();
 		}, 1000);
-	// savedCards.push(matchedCards);
-	// matchedCards = [];
 }
-//
+//keep playing the game if there are still matches to be made
 function keepPlaying() {
 	$(".deck").on("click", "li", function() {
 		$(this).toggleClass("open show");
@@ -132,8 +138,23 @@ function keepPlaying() {
 		}else{
 			return;
 		}
-
 	});	
+}
+//restart the game
+$("#restartGame").on("click", function () {
+		location.reload();
+	});
+
+function endGame() {
+	if (match === 8 ) {
+		alert("you won!");
+		newGame();
+	}else if (stars === 0) {
+		alert("you are out of stars");
+		newGame();
+	}else {
+		return;
+	}
 }
 
 newGame();
