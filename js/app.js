@@ -13,6 +13,7 @@
 		];
 
 	const deck = $(".deck");
+	const modal = $(".modal");
 	let clickCounter = 2;
 	let clickedCards = [];
 	let matchedCards = [];
@@ -20,10 +21,12 @@
 	let match = 0;
 	let moves = 0;
 	let stars = 3;
-
-
-
-
+	let timeStatus = 0;
+	let time = 0;
+	// let seconds = 0;
+	// let minutes = 0;
+	// let hours = 0;
+	
 $(document).ready(function() {
 
 /*
@@ -32,6 +35,11 @@ $(document).ready(function() {
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+//restart the game
+$("#restartGame").on("click", function () {
+		location.reload();
+	});
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -49,8 +57,10 @@ function shuffle(array) {
 }
 
 function newGame() {
+	$(".modal").hide();
 	$(".deck").on("click", "li", function() {
 		moveCounter();
+		start();
 		$(this).toggleClass("open show");
 		//pushes the clicked cards to an empty array
 		clickedCards.push(this);
@@ -60,7 +70,8 @@ function newGame() {
 		if (clickCounter === 0) {
 			compareCards();
 		}else{
-			endGame();
+			// endGame();
+			return;
 		}
 	});	
 };
@@ -79,6 +90,9 @@ function moveCounter() {
 			}else if (moves === 30) {		
 				$("#star3").hide();
 				stars--;
+			}else if (stars === 0) {
+				alert("you are out of stars");
+				newGame();
 			}else {
 				return;
 			}
@@ -88,6 +102,8 @@ function compareCards() {
 	//if the cards match, move to the matchedCard function
 	if ($(clickedCards[0]).find('i').attr('class') === $(clickedCards[1]).find('i').attr('class')) {
 		console.log("match");
+		match++
+		console.log("match count " + match);
 		matchedCard();
 	//if cards do not match, flip cards back over and play continues	
 	}else {
@@ -103,7 +119,7 @@ function compareCards() {
 function matchedCard() {
 	matchedCards.push(clickedCards);
 	console.log("matched cards" + matchedCards);
-	match++;
+	// match++;
 	setTimeout(function() {
 		//matched cards change colors
 		$(matchedCards[0]).removeClass("open show");
@@ -120,6 +136,14 @@ function matchedCard() {
 			matchedCards = [];
 			// compareCards();
 		}, 1000);
+	//count the matches and if they equal 8, end the game
+	if (match === 8) {
+		setTimeout(function() {
+			endGame()
+			stop()}, 1500);
+	}else {
+		return;
+	}
 }
 //keep playing the game if there are still matches to be made
 function keepPlaying() {
@@ -140,21 +164,43 @@ function keepPlaying() {
 		}
 	});	
 }
-//restart the game
-$("#restartGame").on("click", function () {
-		location.reload();
-	});
+//timer
+function start() {
+	timeStatus = 1;
+	startTimer();
+}
+
+function stop() {
+	timeStatus = 0;
+}
+
+function startTimer() {
+		if (timeStatus === 1) {
+			setTimeout(function() {
+				time++;
+				let minutes = Math.floor(time/100/60);
+				let seconds = Math.floor(time/100);
+
+				if(minutes < 10) {
+					minutes = "0" + minutes;
+				}
+				if(seconds >= 60) {
+					seconds = seconds % 60;
+				}
+				if (seconds < 10) {
+					seconds = "0" + seconds; 
+				}
+				$(".timer").html(minutes + ":" + seconds);
+				startTimer();
+
+			}, 10);
+		}
+}
 
 function endGame() {
-	if (match === 8 ) {
-		alert("you won!");
-		newGame();
-	}else if (stars === 0) {
-		alert("you are out of stars");
-		newGame();
-	}else {
-		return;
-	}
+
+	$(".modal").show();
+
 }
 
 newGame();

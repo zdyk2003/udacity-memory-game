@@ -91,9 +91,15 @@ h1 {
     margin-bottom: 10px;
 }
 
+.score-panel .timer {
+    float: left;
+    padding-right: 20px;
+}
+
 .score-panel .stars {
     margin: 0;
-    padding: 0;
+    padding-right: 20px;
+    padding-left: 20px;
     display: inline-block;
     margin: 0 5px 0 0;
 }
@@ -106,4 +112,21 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.modal {
+    /*display: hide;*/
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: rgba(166, 126, 205, 0.6);
+}
+
+.modal-content {
+    margin: 0 auto;
+    padding: 30px;
 }
