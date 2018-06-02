@@ -11,7 +11,7 @@
 		"fa-bicycle", "fa-bicycle",
 		"fa-bomb", "fa-bomb",
 		];
-
+		
 	const deck = $(".deck");
 	const modal = $(".modal");
 	const message = $(".message");
@@ -45,21 +45,21 @@ $("#restartGame").on("click", function () {
 	});
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
+function shuffle(cardArray) {
+    let currentIndex = cardArray.length, temporaryValue, randomIndex;
+ 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = cardArray[currentIndex];
+        cardArray[currentIndex] = cardArray[randomIndex];
+        cardArray[randomIndex] = temporaryValue;
     }
-
-    return array;
+    return cardArray;
 }
 
 function newGame() {
+	shuffle(cardArray);
 	//hide the modal
 	$(".modal").hide();
 	//start the timer
@@ -178,7 +178,6 @@ function start() {
 
 function stop() {
 	timeStatus = 0;
-	$(".timer").html(minutes + ":" + seconds);
 }
 
 function startTimer() {
@@ -207,6 +206,7 @@ function startTimer() {
 function endGame() {
 	if(match === 8) {
 		$(".modal").show();
+		let timer = $(".timer").html();
 		$(".message").html("Congratulations!  You won with " + moves + " moves and a star rating of " + stars + "!  Your time was " + timer + ".");
 		$("button").on("click", function () {
 			location.reload();
