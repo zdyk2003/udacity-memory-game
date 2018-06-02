@@ -14,6 +14,8 @@
 
 	const deck = $(".deck");
 	const modal = $(".modal");
+	const message = $(".message");
+	const button = $("button");
 	let clickCounter = 2;
 	let clickedCards = [];
 	let matchedCards = [];
@@ -23,9 +25,10 @@
 	let stars = 3;
 	let timeStatus = 0;
 	let time = 0;
-	// let seconds = 0;
-	// let minutes = 0;
-	// let hours = 0;
+	let minutes = 0;
+	let seconds = 0;
+	let timer = $(".timer").html(minutes + ":" + seconds);
+
 	
 $(document).ready(function() {
 
@@ -57,10 +60,13 @@ function shuffle(array) {
 }
 
 function newGame() {
+	//hide the modal
 	$(".modal").hide();
+	//start the timer
+	start();
 	$(".deck").on("click", "li", function() {
+		//count each mouse click
 		moveCounter();
-		start();
 		$(this).toggleClass("open show");
 		//pushes the clicked cards to an empty array
 		clickedCards.push(this);
@@ -91,8 +97,8 @@ function moveCounter() {
 				$("#star3").hide();
 				stars--;
 			}else if (stars === 0) {
-				alert("you are out of stars");
-				newGame();
+				stop();
+				endGame();
 			}else {
 				return;
 			}
@@ -172,6 +178,7 @@ function start() {
 
 function stop() {
 	timeStatus = 0;
+	$(".timer").html(minutes + ":" + seconds);
 }
 
 function startTimer() {
@@ -198,9 +205,19 @@ function startTimer() {
 }
 
 function endGame() {
-
-	$(".modal").show();
-
+	if(match === 8) {
+		$(".modal").show();
+		$(".message").html("Congratulations!  You won with " + moves + " moves and a star rating of " + stars + "!  Your time was " + timer + ".");
+		$("button").on("click", function () {
+			location.reload();
+		});
+	}else if (stars === 0) {
+		$(".modal").show();
+		$(".message").html("Game Over! You ran out of stars!");
+		$("button").on("click", function () {
+			location.reload();
+		});
+	}
 }
 
 newGame();
