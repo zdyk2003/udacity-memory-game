@@ -11,8 +11,10 @@
 		"fa-bicycle", "fa-bicycle",
 		"fa-bomb", "fa-bomb",
 		];
-		
+
 	const deck = $(".deck");
+	const card = $(".card");
+	const fa = $(".fa"); 
 	const modal = $(".modal");
 	const message = $(".message");
 	const button = $("button");
@@ -45,21 +47,28 @@ $("#restartGame").on("click", function () {
 	});
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(cardArray) {
-    let currentIndex = cardArray.length, temporaryValue, randomIndex;
+// function shuffle(cardArray) {
+//     let currentIndex = cardArray.length, temporaryValue, randomIndex;
  
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = cardArray[currentIndex];
-        cardArray[currentIndex] = cardArray[randomIndex];
-        cardArray[randomIndex] = temporaryValue;
-    }
-    return cardArray;
+//     while (currentIndex !== 0) {
+//         randomIndex = Math.floor(Math.random() * currentIndex);
+//         currentIndex -= 1;
+//         temporaryValue = cardArray[currentIndex];
+//         cardArray[currentIndex] = cardArray[randomIndex];
+//         cardArray[randomIndex] = temporaryValue;
+//     }
+//     return cardArray;
+// }
+
+function shuffleDeck() {
+	cardArray.sort(function(a, b){return 0.5 - Math.random()});
+	for (let i = 0; i < cardArray.length; i++) {
+	$(".card").html(cardArray[i]);
+	}
 }
 
 function newGame() {
-	shuffle(cardArray);
+	shuffleDeck();
 	//hide the modal
 	$(".modal").hide();
 	//start the timer
