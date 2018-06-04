@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */	
-	const cardArray = [
+	let cardArray = [
 		"fa-diamond", "fa-diamond",
 		"fa-paper-plane-o", "fa-paper-plane-o",
 		"fa-anchor", "fa-anchor",
@@ -13,8 +13,7 @@
 		];
 
 	const deck = $(".deck");
-	const card = $(".card");
-	const fa = $(".fa"); 
+	const card = $(".card"); 
 	const modal = $(".modal");
 	const message = $(".message");
 	const button = $("button");
@@ -34,48 +33,54 @@
 	
 $(document).ready(function() {
 
+//restart the game
+$("#restartGame").on("click", function () {
+		location.reload();
+		newGame();
+	});
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-//restart the game
-$("#restartGame").on("click", function () {
-		location.reload();
-	});
+function makeCards(card) {
+	return `<li class ="card"><i class="fa ${card}"></i></li>`;
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-// function shuffle(cardArray) {
-//     let currentIndex = cardArray.length, temporaryValue, randomIndex;
+function shuffle(cardArray) {
+    let currentIndex = cardArray.length, temporaryValue, randomIndex;
  
-//     while (currentIndex !== 0) {
-//         randomIndex = Math.floor(Math.random() * currentIndex);
-//         currentIndex -= 1;
-//         temporaryValue = cardArray[currentIndex];
-//         cardArray[currentIndex] = cardArray[randomIndex];
-//         cardArray[randomIndex] = temporaryValue;
-//     }
-//     return cardArray;
-// }
-
-function shuffleDeck() {
-	cardArray.sort(function(a, b){return 0.5 - Math.random()});
-	for (let i = 0; i < cardArray.length; i++) {
-	$(".card").html(cardArray[i]);
-	}
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = cardArray[currentIndex];
+        cardArray[currentIndex] = cardArray[randomIndex];
+        cardArray[randomIndex] = temporaryValue;
+    }
+    return cardArray;
 }
 
 function newGame() {
-	shuffleDeck();
+	//shuffles the cards and prints out the cards
+	let cardHTML = shuffle(cardArray).map(function(card) {
+		return makeCards(card);
+	});
+	$(".deck").html(cardHTML.join(""));
+
 	//hide the modal
 	$(".modal").hide();
+	
 	//start the timer
 	start();
+	
+	//click function for clicking on the cards
 	$(".deck").on("click", "li", function() {
 		//count each mouse click
 		moveCounter();
+		//flip cards over to show icons
 		$(this).toggleClass("open show");
 		//pushes the clicked cards to an empty array
 		clickedCards.push(this);
@@ -85,44 +90,43 @@ function newGame() {
 		if (clickCounter === 0) {
 			compareCards();
 		}else{
-			// endGame();
 			return;
 		}
 	});	
 };
 
+//counts how many moves it takes the user to win the game or runout of stars
 function moveCounter() {
-		moves++;
-		$(".moves").html(moves);
-		console.log("moves " + moves);
-		//remove stars
-			if (moves === 15) {
-				$("#star1").hide();
-				stars--;
-			}else if (moves === 20) {		
-				$("#star2").hide();
-				stars--;
-			}else if (moves === 30) {		
-				$("#star3").hide();
-				stars--;
-			}else if (stars === 0) {
-				stop();
-				endGame();
-			}else {
-				return;
-			}
+	//count moves	
+	moves++;
+	$(".moves").html(moves);
+	//remove stars
+		if (moves === 18) {
+			$("#star1").hide();
+			stars--;
+		}else if (moves === 24) {		
+			$("#star2").hide();
+			stars--;
+		}else if (moves === 30) {		
+			$("#star3").hide();
+			stars--;
+		}else if (stars === 0) {
+			stop();
+			endGame();
+		}else {
+			return;
+		}
 }
 
 function compareCards() {
 	//if the cards match, move to the matchedCard function
 	if ($(clickedCards[0]).find('i').attr('class') === $(clickedCards[1]).find('i').attr('class')) {
-		console.log("match");
+		//counts matches
 		match++
-		console.log("match count " + match);
+		//moves matched cards to matchedCard function
 		matchedCard();
 	//if cards do not match, flip cards back over and play continues	
 	}else {
-		console.log("no match");
 		setTimeout(function(){
 			$("li").removeClass("open show");
 			clickCounter = 2;
@@ -133,8 +137,6 @@ function compareCards() {
 
 function matchedCard() {
 	matchedCards.push(clickedCards);
-	console.log("matched cards" + matchedCards);
-	// match++;
 	setTimeout(function() {
 		//matched cards change colors
 		$(matchedCards[0]).removeClass("open show");
@@ -149,7 +151,6 @@ function matchedCard() {
 			savedCards.push(matchedCards);
 			//empty the matchedCards array
 			matchedCards = [];
-			// compareCards();
 		}, 1000);
 	//count the matches and if they equal 8, end the game
 	if (match === 8) {
@@ -190,26 +191,26 @@ function stop() {
 }
 
 function startTimer() {
-		if (timeStatus === 1) {
-			setTimeout(function() {
-				time++;
-				let minutes = Math.floor(time/100/60);
-				let seconds = Math.floor(time/100);
+	if (timeStatus === 1) {
+		setTimeout(function() {
+			time++;
+			let minutes = Math.floor(time/100/60);
+			let seconds = Math.floor(time/100);
 
-				if(minutes < 10) {
-					minutes = "0" + minutes;
-				}
-				if(seconds >= 60) {
-					seconds = seconds % 60;
-				}
-				if (seconds < 10) {
-					seconds = "0" + seconds; 
-				}
-				$(".timer").html(minutes + ":" + seconds);
-				startTimer();
+			if(minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if(seconds >= 60) {
+				seconds = seconds % 60;
+			}
+			if (seconds < 10) {
+				seconds = "0" + seconds; 
+			}
+			$(".timer").html(minutes + ":" + seconds);
+			startTimer();
 
-			}, 10);
-		}
+		}, 10);
+	}
 }
 
 function endGame() {
