@@ -1,24 +1,26 @@
 # Memory Game Project
 
-## Table of Contents
+##Udacity Front-end Developer Nanodegree Program
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
- shuffle and new card Mike Wales https://www.youtube.com/watch?v=_rUH-sEs68Y
- timer https://www.youtube.com/watch?v=gpFPppFU8s8
+## How to play the game
 
-## Instructions
-
-Ready to test your memory?  Click here to <a href="https://zdyk2003.github.io/udacity-memory-game/"> PLAY </a>
+Ready to test your memory?  Click here to <a href="https://zdyk2003.github.io/udacity-memory-game/"> PLAY! </a>
 
 Click on two cards to see if they match.  A match will turn green.  No match? The cards will turn over and you can keep playing.
 
 Watch your stars! Too many clicks and you will start to lose your stars.  If you run out of stars...the game will end.  Don't worry you can always play again!
 
-Test your brain!  Se if you can beat your time the mext go around.
+Test your brain!  See if you can beat your time the next go around.
 
-## Contributing
+## Sources
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+I used a few websites to help me with this project:
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+<ul>
+<li>The timer- <a href= "https://www.youtube.com/watch?v=gpFPppFU8s8">https://www.youtube.com/watch?v=gpFPppFU8s8</a></li>
+<li>The shuffle function- <a href= "http://stackoverflow.com/a/2450976">http://stackoverflow.com/a/2450976</a></li>
+<li>Help with the shuffle function and creating new cards- <a href="https://www.youtube.com/watch?v=_rUH-sEs68Y">Mike Wales webinar</a></li>
+</ul>
+
+
+
