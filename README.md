@@ -9,12 +9,14 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+Ready to test your memory?  Click here to <a href="https://zdyk2003.github.io/udacity-memory-game/"> PLAY </a>
 
-To get started, open `js/app.js` and start building out the app's functionality
-ps://classroom.udacity.com/me).
+Click on two cards to see if they match.  A match will turn green.  No match? The cards will turn over and you can keep playing.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](htt
+Watch your stars! Too many clicks and you will start to lose your stars.  If you run out of stars...the game will end.  Don't worry you can always play again!
+
+Test your brain!  Se if you can beat your time the mext go around.
+
 ## Contributing
 
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
