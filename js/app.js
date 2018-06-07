@@ -35,8 +35,8 @@ $(document).ready(function() {
 
 //restart the game
 $("#restartGame").on("click", function () {
-		location.reload();
-		newGame();
+	location.reload();
+	newGame();
 	});
 
 /*

@@ -4,7 +4,8 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
-Mike Wales https://www.youtube.com/watch?v=_rUH-sEs68Y
+ shuffle and new card Mike Wales https://www.youtube.com/watch?v=_rUH-sEs68Y
+ timer https://www.youtube.com/watch?v=gpFPppFU8s8
 
 ## Instructions
 
