@@ -1,6 +1,13 @@
 # Memory Game Project
 
-##Udacity Front-end Developer Nanodegree Program
+The first project for the Udacity Grow with Google Scholarship Front-End Developer Nanodegree program was a memory game.  The following languages were used to build this game:
+
+<ul>
+  <li> HTML </li>
+  <li> CSS </li>
+  <li> JavaScript </li>
+  <li> jQuery </li>
+</ul>
 
 ## How to play the game
 
